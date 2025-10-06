@@ -5,7 +5,7 @@ import { Sprout } from 'lucide-react-native';
 export default function languagepage() {
   const handleLanguageSelect = (language) => {
     console.log(`Selected language: ${language}`);
-    // In a real app, you would navigate to the next screen here
+
   };
 
   const languages = [
@@ -20,7 +20,6 @@ export default function languagepage() {
   return (
     <SafeAreaView className="flex-1 bg-green-50">
       <View className="flex-1 px-4 py-8">
-        {/* Logo and Title Section */}
         <View className="items-center mb-8">
           <View className="bg-green-600 rounded-full p-6 mb-4">
             <Sprout size={48} color="white" />
@@ -33,7 +32,7 @@ export default function languagepage() {
           </Text>
         </View>
 
-        {/* Language Grid */}
+      
         <View className="flex-row flex-wrap gap-4">
           {languages.map((lang, index) => (
             <TouchableOpacity
