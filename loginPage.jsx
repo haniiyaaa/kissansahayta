@@ -28,7 +28,7 @@ export default function loginPage({ navigation }) {
 
   setLoading(true);
   try {
-    const response = await fetch('http://YOUR_BACKEND_URL/api/users/signin', {
+    const response = await fetch('http://192.168.0.107:5000/api/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email.trim(), password }),

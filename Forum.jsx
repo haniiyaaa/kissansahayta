@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import { MessageCircle, ThumbsUp, Send, X, Search } from 'lucide-react-native';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './navigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BACKEND_URL = 'http://YOUR_BACKEND_URL'; // <--- update this to your server URL
+const BACKEND_URL = 'http://192.168.0.107:5000'; // <--- update this to your server URL
 
 export default function Forum({ navigation }) {
   const [questions, setQuestions] = useState([]);

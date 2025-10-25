@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, RefreshControl } from 'react-native';
 import { Sun, Leaf, Building2 } from 'lucide-react-native';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './navigationBar';
 
 export default function Dashboard({navigation}) {
   const [refreshing, setRefreshing] = useState(false);

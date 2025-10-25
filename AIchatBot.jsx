@@ -9,7 +9,7 @@ import {
   Platform
 } from 'react-native';
 import { Send, Bot, User } from 'lucide-react-native';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './navigationBar';
 
 export default function AIchatbot({ navigation }) {
   const [messages, setMessages] = useState([

@@ -44,7 +44,7 @@ export default function Signup({ navigation }) {
 
     try {
       // Call your backend API
-      const response = await fetch('http://YOUR_BACKEND_URL/api/users/signup', {
+      const response = await fetch('http://192.168.0.107:5000/api/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

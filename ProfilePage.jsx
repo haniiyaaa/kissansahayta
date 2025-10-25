@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Home, MessageSquare, User, Camera } from 'lucide-react-native';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './navigationBar';
 
 export default function ProfilePage({navigation}) {
 
