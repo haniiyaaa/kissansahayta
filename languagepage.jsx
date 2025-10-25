@@ -2,12 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Sprout } from 'lucide-react-native';
 
-export default function languagepage() {
-  const handleLanguageSelect = (language) => {
-    console.log(`Selected language: ${language}`);
-
-  };
-
+export default function languagepage({navigation}) {
   const languages = [
     { name: 'English' },
     { name: 'हिन्दी' },
@@ -16,6 +11,11 @@ export default function languagepage() {
     { name: 'ગુજરાતી' },
     { name: 'తెలుగు' },
   ];
+
+  const handleLanguageSelect = (language) => {
+  navigation.navigate('Dashboard', { language: language }); 
+};
+
 
   return (
     <SafeAreaView className="flex-1 bg-green-50">
@@ -32,24 +32,21 @@ export default function languagepage() {
           </Text>
         </View>
 
-      
-        <View className="flex-row flex-wrap gap-4">
-          {languages.map((lang, index) => (
+        <View className="flex-1 items-center justify-center bg-white">
+<View className="rounded-2xl bg-gray-200/70 p-6 w-[350px] h-[330px] flex-row flex-wrap justify-center items-center gap-4">
+          {languages.map((language) => (
             <TouchableOpacity
-              key={index}
-              className="basis-[calc(50%-8px)] bg-white rounded-xl p-4 border border-gray-100 active:bg-green-50"
-              activeOpacity={0.7}
-              onPress={() => handleLanguageSelect(lang.name)}
+              key={language.name}
+              className="bg-green-200 rounded-lg p-2 w-[35%] h-[70px] justify-center items-center pt-3"
+              onPress={() => handleLanguageSelect(language.name)}
             >
-              <View className="items-center">
-                <Text className="text-lg font-semibold text-gray-800">
-                  {lang.name}
-                </Text>
-              </View>
+              <Text className="text-lg text-gray-800">{language.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
-      </View>
+        </View>
+        </View>
+
     </SafeAreaView>
   );
 }

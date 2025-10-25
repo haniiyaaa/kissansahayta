@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "535308124611",
+    "project_id": "kissansahyata",
+    "storage_bucket": "kissansahyata.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535308124611:android:6a777ca44ef3d30494fd76",
+        "android_client_info": {
+          "package_name": "com.haniya.kissaansahayta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535308124611-jqiacivo9ev9o42lhm7trj6oj3pe9qm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haniya.kissaansahayta",
+            "certificate_hash": "6c81834a2581dab9e12bd540bb133eb28eda3e83"
+          }
+        },
+        {
+          "client_id": "535308124611-c0eb4g6u6r00feu9vmr2phjlo404e9mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBurEl4xKvWuiTNgXPRzzmChll4z7vDBRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535308124611-c0eb4g6u6r00feu9vmr2phjlo404e9mo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "535308124611-f98gladekc1ijhaqr918d3hoo7l604cf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.haniya.kissaansahayta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

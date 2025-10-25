@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "KissanSahayta",
+    "slug": "KissanSahayta",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.haniya.kissaansahayta",
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.535308124611-f98gladekc1ijhaqr918d3hoo7l604cf"
+        }
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.haniya.kissaansahayta",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fd4ecca6-bf0f-4f98-a51a-6824cbaa49cf"
+      }
+    },
+    "plugins": [
+      "expo-web-browser"
+    ]
+  }
+}

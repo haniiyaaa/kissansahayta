@@ -1,2 +1,12 @@
 node_modules/
+app.json/
+eas.json/
+firebase.json/
+google-services.json/
+Googleservice-Info.plist/
+metro.config.js/
+package-lock.json/
+package.json/
+postcss.config.js/
+app.json/
 .expo/
