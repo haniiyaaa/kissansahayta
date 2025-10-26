@@ -21,7 +21,7 @@ export default function loginPage({ navigation }) {
 
   // Function to handle login
   const handleLogin = async () => {
-  if (!email || !password) {
+  if (!emailOrUsername || !password) {
     Alert.alert('Error', 'Please enter both email and password');
     return;
   }
@@ -31,7 +31,7 @@ export default function loginPage({ navigation }) {
     const response = await fetch('http://192.168.0.107:5000/api/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.trim(), password }),
+      body: JSON.stringify({ email: emailOrUsername.trim(), password }),
     });
     const data = await response.json();
 
