@@ -14,8 +14,8 @@ import Forum from "./Forum";
 import AIchatbot from "./AIchatBot";
 
 
-
-const Stack = createNativeStackNavigator();
+ 
+const Stack = createNativeStackNavigator(); 
 
 export default function App() {
   return (

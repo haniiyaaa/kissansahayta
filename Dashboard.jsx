@@ -1,45 +1,68 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, RefreshControl } from 'react-native';
-import { Sun, Leaf, Building2 } from 'lucide-react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, RefreshControl, Alert, Platform } from 'react-native';
+import * as Location from 'expo-location';
+import { Leaf } from 'lucide-react-native';
 import NavigationBar from './navigationBar';
+import { fetchWeatherByCoords, fetchMandiPrices } from './api';
 
-export default function Dashboard({navigation}) {
+export default function Dashboard({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
+  const [cropPrices, setCropPrices] = useState(null);
 
-  const [weatherData] = useState({
-    temperature: 28,
-    condition: 'Sunny',
-    windSpeed: 12,
-    rainChance: 10
-  });
+  const defaultCoords = { latitude: 19.0760, longitude: 72.8777 }; // Mumbai fallback
 
-  const [cropPrices] = useState({
-    wheat: 28.50,
-    rice: 20.50
-  });
+  // Get user location safely
+  const getUserLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Using default location (Mumbai)');
+        return defaultCoords;
+      }
 
-  const [schemes] = useState([
-    {
-      name: 'PM-KISAN SCHEME',
-      description: '$6000 Annual support for farmers',
-      status: 'Active'
-    },
-    {
-      name: 'Crop Insurance',
-      description: 'Protect your crops from natural disaster',
-      status: 'Apply Now'
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+      return location.coords;
+    } catch (err) {
+      console.log('Location error:', err);
+      Alert.alert('Location Error', 'Using default location (Mumbai)');
+      return defaultCoords;
     }
-  ]);
+  };
+
+  // Fetch weather and crop prices
+  const fetchData = async () => {
+    try {
+      const coords = await getUserLocation();
+      const weather = await fetchWeatherByCoords(coords.latitude, coords.longitude);
+      setWeatherData(weather);
+
+      const mandiData = await fetchMandiPrices('Maharashtra');
+      if (mandiData?.mandi_data) {
+        const wheat = mandiData.mandi_data.find((c) => c.commodity === 'Wheat')?.modal_price || 0;
+        const rice = mandiData.mandi_data.find((c) => c.commodity === 'Rice')?.modal_price || 0;
+        setCropPrices({ wheat, rice });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onRefresh = async () => {
     setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 1000);
+    await fetchData();
+    setRefreshing(false);
   };
 
   return (
     <View className="flex-1 bg-gray-50">
       <ScrollView
-        className="flex-1"
         contentContainerStyle={{ paddingBottom: 100 }}
         refreshControl={
           <RefreshControl
@@ -53,11 +76,13 @@ export default function Dashboard({navigation}) {
         {/* Weather Card */}
         <View className="bg-white mt-4 mx-4 rounded-2xl p-6 shadow border-2 border-gray-100">
           <Text className="text-gray-400 text-sm mb-1">Weather Today</Text>
-          <Text className="text-4xl font-bold text-black">{weatherData.temperature}°C</Text>
-          <Text className="text-base text-black mb-1">{weatherData.condition}</Text>
+          <Text className="text-4xl font-bold text-black">
+            {weatherData ? weatherData.temperature : '--'}°C
+          </Text>
+          <Text className="text-base text-black mb-1">{weatherData?.condition || '--'}</Text>
           <View className="flex-row mt-2">
-            <Text className="text-gray-400 mr-5">Wind: {weatherData.windSpeed} km/hr</Text>
-            <Text className="text-gray-400">Rain Chances: {weatherData.rainChance}%</Text>
+            <Text className="text-gray-400 mr-5">Wind: {weatherData?.wind_speed || '--'} km/hr</Text>
+            <Text className="text-gray-400">Humidity: {weatherData?.humidity || '--'}%</Text>
           </View>
         </View>
 
@@ -69,28 +94,11 @@ export default function Dashboard({navigation}) {
           </View>
           <View className="mt-2">
             <Text className="font-semibold text-black text-base">Wheat</Text>
-            <Text className="text-gray-500">₹{cropPrices.wheat} per quintal</Text>
+            <Text className="text-gray-500">₹{cropPrices?.wheat || '--'} per quintal</Text>
           </View>
           <View className="mt-2">
             <Text className="font-semibold text-black text-base">Rice</Text>
-            <Text className="text-gray-500">₹{cropPrices.rice} per quintal</Text>
-          </View>
-        </View>
-
-        {/* Government Schemes Card */}
-        <View className="bg-white mt-6 mx-4 rounded-2xl p-6 shadow border-2 border-gray-100 mb-6">
-          <View className="flex-row items-center mb-2">
-            <Building2 size={24} color="#16a34a" />
-            <Text className="font-bold text-lg text-black ml-2">Government Schemes</Text>
-          </View>
-          <View className="mt-2">
-            {schemes.map((scheme, i) => (
-              <View key={i} className="mb-4">
-                <Text className="font-bold text-black text-base">{scheme.name}</Text>
-                <Text className="text-gray-500">{scheme.description}</Text>
-                <Text className="text-emerald-600 font-bold mt-1">{scheme.status}</Text>
-              </View>
-            ))}
+            <Text className="text-gray-500">₹{cropPrices?.rice || '--'} per quintal</Text>
           </View>
         </View>
       </ScrollView>
